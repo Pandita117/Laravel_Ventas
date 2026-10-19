@@ -13,42 +13,38 @@ class CategoriaController extends Controller
         return view('categoria',compact('categoria'));
     }
 
-    public function createCategoria(Reques $request){
-
-    dd($request);
+    public function createCategoria(Request $request){
 
         $request->validate([
             "categoria" => 'required'
         ]);
     
 
-    $categoria = Categoria::create([
-        "categoria" => $request->categoria
-    ]);
+        Categoria::create([
+            "categoria" => $request->categoria
+        ]);
 
-    return redirect("/categorias")->with([
-        "mensaje" => "categoria registrada"
-    ]);
+        return redirect()->route("getCategorias")->with([
+            "mensaje" => "categoria registrada"
+        ]);
 
     }
 
 
     public function updateCagetoria($id, Request $request){
-        $categoria = Categoria::find($id);
+        $categoria = Categoria::findOrFail($id);
         $categoria -> update([
             "categoria" => $request->categoria
         ]);
         $categoria->save();
-
-        return redirect ('/categorias')->with(['mensaje'=> 'categoria actualizada']);
+        return redirect()->route ('getCategorias')->with(['mensaje'=> 'categoria actualizada']);
     }
 
 
     public function deleteCategoria($id){
-        $categoria = Categoria::find($id);
+        $categoria = Categoria::findOrFail($id);
         $categoria->delete();
-        $categoria->save();
-        return redirect('/categorias')->with(['mensaje '=>'categoria eliminada']);
+        return redirect()->route('getCategorias')->with(['mensaje '=>'categoria eliminada']);
     }
 
 

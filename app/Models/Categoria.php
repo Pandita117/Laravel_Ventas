@@ -8,7 +8,12 @@ class Categoria extends Model
 {
     protected $table = "categoria";
 
-    protected $fillable =[
+    protected $fillable = [
         "categoria"
     ];
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'categoria_id');
+    }
 }
