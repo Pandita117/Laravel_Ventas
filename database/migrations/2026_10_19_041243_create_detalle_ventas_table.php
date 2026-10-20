@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('venta_id');
-            $table->foreign('venta_id')->references('id')->on('ventas');
+            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
             $table->unsignedInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->unsignedBigInteger('cantidad');
             $table->decimal('precio_unitario');
             $table->decimal('total');

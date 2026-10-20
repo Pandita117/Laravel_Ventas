@@ -27,7 +27,10 @@
           <a class="nav-link text-white" aria-current="page" href="{{ route('productos.get') }}">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Clientes</a>
+          <a class="nav-link text-white" aria-current="page" href="{{ route('clientes.get') }}">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" aria-current="page" href="{{ route('ventas.index') }}">Ventas</a>
         </li>
       </ul>
     </div>

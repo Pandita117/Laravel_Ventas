@@ -1,3 +1,7 @@
+
+
+
+@props(['categorias'])
 <!-- Botón para abrir el Modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProductoModal">
     Nuevo producto

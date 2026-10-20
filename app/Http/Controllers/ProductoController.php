@@ -48,24 +48,24 @@ class ProductoController extends Controller
 
     // 4. Guardar los cambios de la edición
     public function updateProducto(int $id, Request $request)
-    {
-        $request->validate([
-            'inputProducto'     => 'required|string|max:255',
-            'inputPrecio'       => 'required|numeric|min:0',
-            'inputStock'        => 'required|integer|min:0',
-            'inputCategoria_id' => 'required|exists:categoria,id',
-        ]);
+{
+    $request->validate([
+        'inputProducto'     => 'required',
+        'inputPrecio'       => 'required',
+        'inputStock'        => 'required',
+        'inputCategoria_id' => 'required|exists:categoria,id', // O 'exists:categorias,id' si tu tabla está en plural
+    ]);
 
-        $producto = Producto::findOrFail($id);
-        $producto->update([
-            'producto'     => $request->inputProducto,
-            'precio'       => $request->inputPrecio,
-            'stock'        => $request->inputStock,
-            'categoria_id' => $request->inputCategoria_id,
-        ]);
+    $producto = Producto::findOrFail($id);
+    $producto->update([
+        'producto'     => $request->inputProducto,
+        'precio'       => $request->inputPrecio,
+        'stock'        => $request->inputStock,
+        'categoria_id' => $request->inputCategoria_id,
+    ]);
 
-        return redirect()->route('productos.get')->with('mensaje', 'Producto actualizado correctamente');
-    }
+    return redirect()->route('productos.get')->with('mensaje', 'Producto actualizado correctamente');
+}
 
     // 5. Eliminar producto
     public function deleteProducto(int $id)

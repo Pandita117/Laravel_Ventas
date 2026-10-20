@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('cliente_id');
-            $table->foreign('cliente_id') -> references('id')->on('cliente');
-            $table->date('fecha_venta');
-            $table->boolean('estado');
+            $table->foreign('cliente_id') -> references('id')->on('clientes') ->onDelete('cascade');
+            $table->date('fecha_venta') -> useCurrent();
+            $table->enum('estado',['pendiente','confirmada', 'cancelada']) ->default('pendiente');
             $table->unsignedBigInteger('total');
             $table->timestamps();
 

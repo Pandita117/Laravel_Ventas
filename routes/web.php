@@ -23,10 +23,19 @@ Route::put('productos/update/{id}', [ProductoController::class, 'updateProducto'
 Route::delete('productos/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('producto.delete');
 Route::get('productos/edit/{id}', [ProductoController::class, 'editProducto'])->name('producto.edit');
 
-// Clientes y Ventas
-Route::resource('clientes', ClienteController::class);
-Route::resource('ventas', VentaController::class);
+// Clientes
+Route::get('/clientes', [ClienteController::class, 'getClientes'])->name('clientes.get');
+Route::post('/clientes/create', [ClienteController::class, 'createCliente'])->name('clientes.create');
+Route::put('/clientes/update/{id}', [ClienteController::class, 'updateCliente'])->name('clientes.update');
+Route::delete('/clientes/delete/{id}', [ClienteController::class, 'deleteCliente'])->name('clientes.delete');
 
+
+
+//ventas
+Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::put('/ventas/{id}', [VentaController::class, 'update'])->name('ventas.update');
+Route::delete('/ventas/{id}', [VentaController::class, 'destroy'])->name('ventas.destroy');
 // Galería de imágenes
 Route::get('/galeria', function () {
     $imagenes = [
