@@ -4,6 +4,6 @@
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-danger" onclick=" return confirm('¿Deseas eliminar este cliente {{ $cliente->cliente }}?') "    >
-        
+        Eliminar
     </button>
 </form>

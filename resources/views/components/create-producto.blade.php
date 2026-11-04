@@ -21,7 +21,6 @@
         </div>
 
         <div class="modal-body text-start">
-          {{-- Nombre del Producto --}}
           <div class="mb-3">
             <label class="form-label font-bold">Nombre del Producto</label>
             <input name="inputProducto" class="form-control" type="text" placeholder="Ej. Lapicero azul" value="{{ old('inputProducto') }}" required>
@@ -30,7 +29,6 @@
             @enderror
           </div>
 
-          {{-- Precio --}}
           <div class="mb-3">
             <label class="form-label font-bold">Precio</label>
             <input name="inputPrecio" class="form-control" type="number" step="0.01" placeholder="Ej. 15.50" value="{{ old('inputPrecio') }}" required>
@@ -39,7 +37,6 @@
             @enderror
           </div>
 
-          {{-- Stock --}}
           <div class="mb-3">
             <label class="form-label font-bold">Stock</label>
             <input name="inputStock" class="form-control" type="number" placeholder="Ej. 50" value="{{ old('inputStock') }}" required>
@@ -48,7 +45,6 @@
             @enderror
           </div>
 
-          {{-- Categoría --}}
           <div class="mb-3">
             <label class="form-label font-bold">Categoría</label>
             <select name="inputCategoria_id" class="form-select" required>
@@ -73,3 +69,5 @@
     </div>
   </div>
 </div>
+
+

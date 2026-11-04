@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('precio');
             $table->integer('stock');
             $table->unsignedInteger('categoria_id');
-            $table->foreign('categoria_id')->references('id')->on('categoria');
+            $table->foreign('categoria_id')->references('id')->on('categoria')->onDelete('cascade');;
             $table->timestamps();
 
         });

@@ -32,7 +32,6 @@
             @enderror
           </div>
 
-          {{-- Dirección --}}
           <div class="mb-3">
             <label class="form-label font-bold">Dirección</label>
             <input name="inputDireccion" class="form-control" type="text" placeholder="Ej. Av. Torreón #123" value="{{ old('inputDireccion') }}" required>
@@ -41,7 +40,6 @@
             @enderror
           </div>
 
-          {{-- Teléfono --}}
           <div class="mb-3">
             <label class="form-label font-bold">Teléfono</label>
             <input name="inputTelefono" class="form-control" type="text" placeholder="Ej. 8711234567" value="{{ old('inputTelefono') }}" required>
