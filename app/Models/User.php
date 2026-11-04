@@ -28,7 +28,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_expires_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Verifica si el usuario tiene el rol de administrador (por columna o por Spatie).
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin' || (method_exists($this, 'hasRole') && rescue(fn() => $this->hasRole('admin'), false));
     }
 
 //este hace el codigo

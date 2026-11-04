@@ -9,8 +9,20 @@
 
                 <div class="card-body">
                     <p class="text-muted text-center">
-                        Hemos enviado un código de verificación a tu correo electrónico. Por favor ingrésalo para continuar.
+                        Hemos enviado un código de verificación a tu correo electrónico. Esta página y tu código expiran en 5 minutos.
                     </p>
+
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     @if (session('error'))
                         <div class="alert alert-danger" role="alert">
@@ -40,6 +52,15 @@
                             </button>
                         </div>
                     </form>
+
+                    <div class="text-center mt-3">
+                        <form method="POST" action="{{ route('admin.reenviar') }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
+                                ¿No recibiste el código? Reenviar código
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

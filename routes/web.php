@@ -58,4 +58,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/autenti', [AdminController::class, 'vistaAutenticacion'])->name('admin.autenti');
     Route::post('/verificar', [AdminController::class, 'verificarCodigo'])->name('admin.verificar');
+    Route::post('/reenviar', [AdminController::class, 'reenviarCodigo'])->name('admin.reenviar');
 });
