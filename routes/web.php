@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\VentaController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,8 +15,8 @@ Route::get('/', function () {
 // Categorías
 Route::get('categoria', [CategoriaController::class, 'getCategorias'])->name('getCategorias');
 Route::post('create/categoria', [CategoriaController::class, 'createCategoria'])->name('categoria.create');
-Route::put("update/categoria/{id}", [CategoriaController::class, 'updateCagetoria'])->name('categoria.update');
-Route::delete("delete/categoria/{id}", [CategoriaController::class, 'deleteCategoria'])->name('categoria.delete');
+Route::put('update/categoria/{id}', [CategoriaController::class, 'updateCagetoria'])->name('categoria.update');
+Route::delete('delete/categoria/{id}', [CategoriaController::class, 'deleteCategoria'])->name('categoria.delete');
 
 // Productos 
 Route::get('/productos', [ProductoController::class, 'getProductos'])->name('productos.get');
@@ -29,13 +31,12 @@ Route::post('/clientes/create', [ClienteController::class, 'createCliente'])->na
 Route::put('/clientes/update/{id}', [ClienteController::class, 'updateCliente'])->name('clientes.update');
 Route::delete('/clientes/delete/{id}', [ClienteController::class, 'deleteCliente'])->name('clientes.delete');
 
-
-
-//ventas
+// Ventas
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
 Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
 Route::put('/ventas/{id}', [VentaController::class, 'update'])->name('ventas.update');
 Route::delete('/ventas/{id}', [VentaController::class, 'destroy'])->name('ventas.destroy');
+
 // Galería de imágenes
 Route::get('/galeria', function () {
     $imagenes = [
@@ -48,4 +49,13 @@ Route::get('/galeria', function () {
     ];
 
     return view('Galeria_imagenes', compact('imagenes'));
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/autenti', [AdminController::class, 'vistaAutenticacion'])->name('admin.autenti');
+    Route::post('/verificar', [AdminController::class, 'verificarCodigo'])->name('admin.verificar');
 });

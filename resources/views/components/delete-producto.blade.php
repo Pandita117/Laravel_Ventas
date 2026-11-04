@@ -4,6 +4,6 @@
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-danger" onclick=" return confirm('¿Deseas eliminar este producto {{ $producto->producto }}?') "    >
-        
+        Eliminar
     </button>
 </form>

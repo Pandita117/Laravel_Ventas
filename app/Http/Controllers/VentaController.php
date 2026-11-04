@@ -31,7 +31,6 @@ class VentaController extends Controller
 
         $producto = Producto::findOrFail($request->producto_id);
 
-        // Validar Stock
         if ($producto->stock < $request->cantidad) {
             return redirect()->back()->withErrors(['stock' => 'Stock insuficiente. Disponibles: ' . $producto->stock]);
         }
