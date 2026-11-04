@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Notifications\SendTwoFactorCode;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -35,17 +37,24 @@ class LoginController extends Controller
             $user->timestamps = false;
             $user->forceFill([
                 'two_factor_code' => $code,
-                'two_factor_expires_at' => now()->addMinutes(10),
+                'two_factor_expires_at' => now()->addMinutes(5),
             ])->save();
+
+            // Generar la URL temporal firmada gigante que expira en 5 minutos
+            $urlTemporal = URL::temporarySignedRoute(
+                'admin.autenti',
+                now()->addMinutes(5),
+                ['token' => Str::random(64)]
+            );
 
             try {
                 $user->notifyNow(new SendTwoFactorCode($code));
             } catch (\Throwable $e) {
                 Log::error('Error enviando código 2FA: ' . $e->getMessage());
-                return redirect()->route('admin.autenti')->with('error', 'No se pudo enviar el correo: ' . $e->getMessage());
+                return redirect()->to($urlTemporal)->with('error', 'No se pudo enviar el correo: ' . $e->getMessage());
             }
 
-            return redirect()->route('admin.autenti');
+            return redirect()->to($urlTemporal);
         }
 
         // 2. Si es Empleado, continúa su flujo normal a /categoria

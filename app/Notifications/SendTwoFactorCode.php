@@ -42,7 +42,7 @@ class SendTwoFactorCode extends Notification
         ->greeting('¡Hola, ' . $notifiable->name . '!')
         ->line('Tu código de verificación para ingresar al panel de administración es:')
         ->line('**' . $codigo . '**')
-        ->line('Este código expira en 10 minutos.');
+        ->line('Este código y la URL de verificación expiran en 5 minutos.');
 }
     /**
      * Get the array representation of the notification.

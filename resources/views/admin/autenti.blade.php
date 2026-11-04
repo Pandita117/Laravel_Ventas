@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <p class="text-muted text-center">
-                        Hemos enviado un código de verificación a tu correo electrónico. Por favor ingrésalo para continuar.
+                        Hemos enviado un código de verificación a tu correo electrónico. Esta página y tu código expiran en 5 minutos.
                     </p>
 
                     @if (session('status'))
