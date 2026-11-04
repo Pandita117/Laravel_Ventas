@@ -35,11 +35,13 @@ class SendTwoFactorCode extends Notification
      */
    public function toMail(object $notifiable): MailMessage
 {
+    $codigo = $this->code ?? $notifiable->two_factor_code;
+
     return (new MailMessage)
         ->subject('Código de Verificación para Inicio de Sesión admin')
         ->greeting('¡Hola, ' . $notifiable->name . '!')
         ->line('Tu código de verificación para ingresar al panel de administración es:')
-        ->line('**' . $notifiable->two_factor_code . '**')
+        ->line('**' . $codigo . '**')
         ->line('Este código expira en 10 minutos.');
 }
     /**

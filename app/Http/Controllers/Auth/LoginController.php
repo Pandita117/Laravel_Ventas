@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Notifications\SendTwoFactorCode;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -29,14 +30,21 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if ($user->hasRole('admin')) {
+        if ($user->isAdmin()) {
             $code = rand(100000, 999999);
+            $user->timestamps = false;
             $user->forceFill([
                 'two_factor_code' => $code,
                 'two_factor_expires_at' => now()->addMinutes(10),
             ])->save();
 
-            $user->notifyNow(new SendTwoFactorCode($code));
+            try {
+                $user->notifyNow(new SendTwoFactorCode($code));
+            } catch (\Throwable $e) {
+                Log::error('Error enviando código 2FA: ' . $e->getMessage());
+                return redirect()->route('admin.autenti')->with('error', 'No se pudo enviar el correo: ' . $e->getMessage());
+            }
+
             return redirect()->route('admin.autenti');
         }
 
@@ -44,3 +52,7 @@ class LoginController extends Controller
         return redirect()->intended($this->redirectPath());
     }
 }
+
+
+
+
